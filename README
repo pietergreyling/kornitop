@@ -1,7 +1,6 @@
-Kornitop: Clipboard Notes Manager
-
-Copyright: pietergreyling.com
-Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+Kornitop : Clipboard Notes Manager
+Copyright: (c) 2011, Pieter Greyling (http://www.pietergreyling.com)
+License  : Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 
 Simple and corny cross-platform clipboard tracker (to start with...)
 Currently built with Python and PyGTK.

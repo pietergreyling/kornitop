@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
 '''
-Kornitop: Clipboard Notes Manager
-Copyright: pietergreyling.com
-Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+Kornitop : Clipboard Notes Manager
+Copyright: (c) 2011, Pieter Greyling (http://www.pietergreyling.com)
+License  : Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 
 Simple and corny cross-platform clipboard tracker (to start with...)
 Currently built with Python and PyGTK.
@@ -23,6 +23,8 @@ http://www.pygtk.org/pygtk2tutorial/
 http://www.pygtk.org/pygtk2tutorial/ch-NewInPyGTK2.2.html#sec-ClipboardExample
 http://www.pygtk.org/pygtk2tutorial/examples/clipboard.py 
 '''
+
+__author__ = "Pieter Greyling"
 
 import sys
 import os, os.path
@@ -52,7 +54,7 @@ class AppStrings: #-- just a namespace -----------------------------------------
     ABOUT_LABEL_TEXT = "About Kornitop"
     COPY_BUTTON_TEXT = "Copy back to Clipboard"
     SAVE_BUTTON_TEXT = "Save Clipboard and Notes Files"
-    SEARCH_BUTTON_TEXT = "Search Clipboard and Notes Files"    
+    CLIPS_SEARCH_BUTTON_TEXT = "Search Clipboard Log"    
 
 class KornitopFile(object):
     def __init__(self, filename): # file name is mandatory
@@ -277,7 +279,7 @@ class KornitopMain(object):
         self.txt_clips_search_for.show()
         self.clips_vbox.pack_start(self.txt_clips_search_for, False)
         #-- 'search' button to find text in file buffers -----------------------
-        cmd_clips_search = gtk.Button(AppStrings.SEARCH_BUTTON_TEXT)
+        cmd_clips_search = gtk.Button(AppStrings.CLIPS_SEARCH_BUTTON_TEXT)
         cmd_clips_search.show()
         cmd_clips_search.connect('clicked', self.search_clips_file)
         self.clips_vbox.pack_start(cmd_clips_search, False)
@@ -366,9 +368,11 @@ class KornitopMain(object):
             found = start_iter.forward_search(text_to_search_for, 0, None)
             if found:
                 match_start, match_end = found
-                textbuffer_to_search_in.select_range(match_start,match_end)               
+                textbuffer_to_search_in.select_range(match_start,match_end)
+                self.clips_textview.scroll_to_iter(match_start, within_margin = 0)
         except:
-            pass
+            raise
+            #pass
 
     #-- synchronize gui and file buffers ---------------------------------------
     def synch_clips_file_buffer(self):
